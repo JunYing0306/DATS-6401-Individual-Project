@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+    <title>DATS 6401 - Individual Project (Health Care)</title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawAllSheets);
+        function drawAllSheets() {
+            drawSheetName('health', 'SELECT A,B,C,D,E,F,G',
+                            healthgraph);
+            drawSheetName('health', 'SELECT L,J,K,A,G',
+                            healthrate);
+            drawSheetName('health_capita', 'SELECT A,B,C,D,E,F,G',
+                            healthcapitagraph);
+            drawSheetName('health_capita', 'SELECT L,J,K,A,G',
+                            healthcapitarate);
+            drawSheetName('health_gdp', 'SELECT A,B,C,D,E,F,G',
+                            healthgdpgraph);
+            drawSheetName('health_gdp', 'SELECT L,J,K,A,G',
+                            healthgdprate);
+        } //drawAllSheets
+
+        function drawSheetName(sheetName, query, responseHandler) {
+            var queryString = encodeURIComponent(query);
+            var query = new google.visualization.Query(
+                "https://docs.google.com/spreadsheets/d/1UJJ21FgSI9Wf0DiL6zx0g1EtK8cD-bwg-4UEhCIKC6U/gviz/tq?sheet=" 
+                + sheetName + "&headers=1&tq=" + queryString);
+            query.send(responseHandler);
+        } //drawSheetName
+
+        function healthgraph(response) {
+            var data = response.getDataTable();
+            data.sort({column: 6, desc:true});
+            var options = {
+                height: 400,
+                vAxis: {title: 'Spending in Billion($)'}};
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("health_graph_div")
+            );
+            chart.draw(data, options);
+        } //health graph
+
+        function healthrate(response) {
+            var data = response.getDataTable();
+            data.sort({column: 1, desc:true});
+            var options = {
+                height: 500,
+                width: 900,
+                hAxis: {title: 'Growth in Billion'},
+                vAxis: {title: 'Growth Rate'},
+                bubble: {textStyle: {fontSize: 10}}};
+            var chart = new google.visualization.BubbleChart(
+                document.getElementById("health_rate_div")
+            );
+            chart.draw(data, options);
+        } //health rate
+
+        function healthcapitagraph(response) {
+            var data = response.getDataTable();
+            data.sort({column: 6, desc:true});
+            var options = {
+                height: 400,
+                width: 900,
+                vAxis: {title: 'Spending per Capita ($)'}};
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("health_capita_graph_div")
+            );
+            chart.draw(data, options);
+        } //health per capita graph
+
+        function healthcapitarate(response) {
+            var data = response.getDataTable();
+            data.sort({column: 1, desc:true});
+            var options = {
+                height: 500,
+                width: 900,
+                hAxis: {title: 'Growth per Capita'},
+                vAxis: {title: 'Growth Rate'},
+                bubble: {textStyle: {fontSize: 10}}};
+            var chart = new google.visualization.BubbleChart(
+                document.getElementById("health_capita_rate_div")
+            );
+            chart.draw(data, options);
+        } //health per capita rate
+
+        function healthgdpgraph(response) {
+            var data = response.getDataTable();
+            data.sort({column: 6, desc:true});
+            var options = {
+                height: 400,
+                width: 900,
+                vAxis: {title: 'Spending per GDP (%)'}};
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("health_gdp_graph_div")
+            );
+            chart.draw(data, options);
+        } //health per GDP graph
+
+        function healthgdprate(response) {
+            var data = response.getDataTable();
+            data.sort({column: 1, desc:true});
+            var options = {
+                height: 500,
+                width: 900,
+                hAxis: {title: 'Growth per GDP'},
+                vAxis: {title: 'Growth Rate'},
+                bubble: {textStyle: {fontSize: 10}}};
+            var chart = new google.visualization.BubbleChart(
+                document.getElementById("health_gdp_rate_div")
+            );
+            chart.draw(data, options);
+        } //health per GDP rate
+    </script>
+</head>
+
+<body>
+    <div id='main'>
+        <div id='header'>
+            <div id='logo'>
+                <div id='image'><img src="image/GW_logo.jpg"></div>
+                <div id='logo_text'>
+                    <h1>DATS 6401 - Visualization</h1>
+                    <h2>Instructor - Nima Zahadat, Ph.D.</h2>
+                </div>
+            </div>
+        
+            <div id="menubar">
+                <div id='project'><h1>Individual Project - Jun Ying</h1></div>
+                <ul id="menu">
+                    <li><a href="index.html">Introduction</a></li>
+                    <li><a href="Education_Spending.html">Education</a></li>
+                    <li class="selected"><a href="Health_Care_Spedning.html">Health Care</a></li>
+                    <li><a href="Military_Spending.html">Military</a></li>
+                    <li><a href="Comparison.html">Comparison</a></li>
+                    <li><a href="Summary.html">Summary</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id='content'>
+            <div id='text'>
+                <h1>Overview</h1>
+                <p>This section shows the health care expenditure of each country in three ways: 
+                    totel, per capita and per GDP. Through the following table, we can find some 
+                    interesting changes and trends</p>
+                <p>Let us select each part and have a look.</p>
+            </div>
+
+            <div id='visual'>
+                <select name='' id='selection' onclick='changePic()'>
+                    <option value='0'>Totel Health Care Spending</option>
+                    <option value='1'>Health Care Spending per Capita</option>
+                    <option value='2'>Health Care Spending per GDP</option>
+                </select>
+
+                <div id='plot'>
+                    <div id='title1' style='display: block'><h1>Health Care Spending from 2010 to 2015</h1></div>
+                    <div id='health_graph_div' style='width: 900px; height: 400px; display: block;'></div>
+                    <div id='title2' style='display: block'><h1>Growth Rate of Health Care Spending from 2010 to 2015</h1></div>
+                    <div id='health_rate_div' style='width: 900px; height: 500px; display: block;'></div>
+                    <div id='title3' style='display: none'><h1>Health Care Spending per Capita from 2010 to 2015</h1></div>
+                    <div id='health_capita_graph_div' style='width: 900px; height: 400px; display: none;'></div>
+                    <div id='title4' style='display: none'><h1>Growth Rate of Health Care Spending per Capita from 2010 to 2015</h1></div>
+                    <div id='health_capita_rate_div' style='width: 900px; height: 500px; display: none;'></div>
+                    <div id='title5' style='display: none'><h1>Health Care Spending per GDP from 2010 to 2015</h1></div>
+                    <div id='health_gdp_graph_div' style='width: 900px; height: 400px; display: none;'></div>
+                    <div id='title6' style='display: none'><h1>Growth Rate of Health Care Spending per GDP from 2010 to 2015</h1></div>
+                    <div id='health_gdp_rate_div' style='width: 900px; height: 500px; display: none;'></div>
+                </div>
+
+                <script type='text/javascript'>
+                    function changePic() {
+                        var myselect = document.getElementById('selection');　　
+                        console.log('myselect------------>', myselect);
+                        var index = myselect.selectedIndex;　　　　　　　　　
+                        console.log('index------------>', index);
+                        var value = myselect.options[index].value;
+                        console.log('value------------>', value);
+                        var box1 = document.getElementById('health_graph_div');
+                        var text1 = document.getElementById('title1');
+                        var box2 = document.getElementById('health_rate_div');
+                        var text2 = document.getElementById('title2');
+                        var box3 = document.getElementById('health_capita_graph_div');
+                        var text3 = document.getElementById('title3');
+                        var box4 = document.getElementById('health_capita_rate_div');
+                        var text4 = document.getElementById('title4');
+                        var box5 = document.getElementById('health_gdp_graph_div');
+                        var text5 = document.getElementById('title5');
+                        var box6 = document.getElementById('health_gdp_rate_div');
+                        var text6 = document.getElementById('title6');
+                        if (value == 0) {
+                            box1.style.display = 'block'
+                            text1.style.display = 'block'
+                            box2.style.display = 'block'
+                            text2.style.display = 'block'
+                            box3.style.display = 'none'
+                            text3.style.display = 'none'    
+                            box4.style.display = 'none'
+                            text4.style.display = 'none'   
+                            box5.style.display = 'none'
+                            text5.style.display = 'none'
+                            box6.style.display = 'none'
+                            text6.style.display = 'none' 
+                        }
+                        if (value == 1) {
+                            box1.style.display = 'none'
+                            text1.style.display = 'none'
+                            box2.style.display = 'none'
+                            text2.style.display = 'none'
+                            box3.style.display = 'block'
+                            text3.style.display = 'block'
+                            box4.style.display = 'block'
+                            text4.style.display = 'block'
+                            box5.style.display = 'none'
+                            text5.style.display = 'none'
+                            box6.style.display = 'none'
+                            text6.style.display = 'none' 
+                        }
+                        if (value == 2)  {
+                            box1.style.display = 'none'
+                            text1.style.display = 'none'
+                            box2.style.display = 'none'
+                            text2.style.display = 'none'
+                            box3.style.display = 'none'
+                            text3.style.display = 'none'
+                            box4.style.display = 'none'
+                            text4.style.display = 'none'
+                            box5.style.display = 'block'
+                            text5.style.display = 'block'
+                            box6.style.display = 'block'
+                            text6.style.display = 'block' 
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+        <div id='footer'>Copyright &copy; 2020</div>
+    </div>
+</body>
+</html>

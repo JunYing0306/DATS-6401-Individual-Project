@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+    <title>DATS 6401 - Individual Project (Comparison)</title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawAllSheets);
+        function drawAllSheets() {
+            drawSheetName('data2015', 'SELECT F,C,E,A,B',
+                            educationtomilitary);
+            drawSheetName('data2015', 'SELECT F,C,D,A,B',
+                            healthtomilitary);
+            drawSheetName('Canada', 'SELECT A,E,F,G',
+                            canada);
+            drawSheetName('Canada', 'SELECT A,H,I,J',
+                            canadacapita);
+            drawSheetName('France', 'SELECT A,E,F,G',
+                            france);
+            drawSheetName('France', 'SELECT A,H,I,J',
+                            francecapita);
+            drawSheetName('data2015_capita', 'SELECT A,C',
+                            francepiecapita);
+            drawSheetName('Germany', 'SELECT A,E,F,G',
+                            germany);
+            drawSheetName('Germany', 'SELECT A,H,I,J',
+                            germanycapita);
+            drawSheetName('data2015_capita', 'SELECT A,D',
+                            germanypiecapita);
+            drawSheetName('Italy', 'SELECT A,E,F,G',
+                            italy);
+            drawSheetName('Italy', 'SELECT A,H,I,J',
+                            italycapita);
+            drawSheetName('data2015_capita', 'SELECT A,E',
+                            italypiecapita);
+            drawSheetName('Japan', 'SELECT A,E,F,G',
+                            japan);
+            drawSheetName('Japan', 'SELECT A,H,I,J',
+                            japancapita);
+            drawSheetName('United Kingdom', 'SELECT A,E,F,G',
+                            unitedkingdom);
+            drawSheetName('United Kingdom', 'SELECT A,H,I,J',
+                            unitedkingdomcapita);
+            drawSheetName('data2015_capita', 'SELECT A,G',
+                            unitedkingdompiecapita);
+            drawSheetName('United States', 'SELECT A,E,F,G',
+                            unitedstates);
+            drawSheetName('United States', 'SELECT A,H,I,J',
+                            unitedstatescapita);
+            drawSheetName('South Africa', 'SELECT A,E,F,G',
+                            southafrica);
+            drawSheetName('South Africa', 'SELECT A,H,I,J',
+                            southafricacapita);
+            drawSheetName('data2015_capita', 'SELECT A,I',
+                            southafricapiecapita);
+            drawSheetName('China', 'SELECT A,E,F',
+                            china);
+            drawSheetName('China', 'SELECT A,H,I',
+                            chinacapita);
+            drawSheetName('India', 'SELECT A,E,F,G',
+                            india);
+            drawSheetName('India', 'SELECT A,H,I,J',
+                            indiacapita);
+            drawSheetName('Russia', 'SELECT A,E,F,G',
+                            russia);
+            drawSheetName('Russia', 'SELECT A,H,I,J',
+                            russiacapita);
+            drawSheetName('data2015_capita', 'SELECT A,L',
+                            russiapiecapita);
+            drawSheetName('Brazil', 'SELECT A,E,F,G',
+                            brazil);
+            drawSheetName('Brazil', 'SELECT A,H,I,J',
+                            brazilcapita);
+            drawSheetName('data2015_capita', 'SELECT A,M',
+                            brazilpiecapita);
+        } //drawAllSheets
+
+        function drawSheetName(sheetName, query, responseHandler) {
+            var queryString = encodeURIComponent(query);
+            var query = new google.visualization.Query(
+                "https://docs.google.com/spreadsheets/d/1UJJ21FgSI9Wf0DiL6zx0g1EtK8cD-bwg-4UEhCIKC6U/gviz/tq?sheet=" 
+                + sheetName + "&headers=1&tq=" + queryString);
+            query.send(responseHandler);
+        } //drawSheetName
+
+        function educationtomilitary(response) {
+            var data = response.getDataTable();
+            data.sort({column: 1, desc:true});
+            var options = {
+                height: 500,
+                width: 900,
+                hAxis: {title: 'Military Spending per Capita'},
+                vAxis: {title: 'Education Spending per Capita'},
+                bubble: {textStyle: {fontSize: 10}}};
+            var chart = new google.visualization.BubbleChart(
+                document.getElementById("education_military_div")
+            );
+            chart.draw(data, options);
+        }
+        function healthtomilitary(response) {
+            var data = response.getDataTable();
+            data.sort({column: 1, desc:true});
+            var options = {
+                height: 500,
+                width: 900,
+                hAxis: {title: 'Military Spending per Capita'},
+                vAxis: {title: 'Health Care Spending per Capita'},
+                bubble: {textStyle: {fontSize: 10}}};
+            var chart = new google.visualization.BubbleChart(
+                document.getElementById("health_military_div")
+            );
+            chart.draw(data, options);
+        }
+        function canada(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("canada_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function canadacapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("canada_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+        function france(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("france_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function francecapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("france_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+        function francepiecapita(response) {
+            var data = response.getDataTable();
+            var options = {title: 'Spending per Capita',
+                           height: 250,
+                           width: 480};
+            var chart = new google.visualization.PieChart(
+                document.getElementById("france_pie_capita_div")
+            );
+            chart.draw(data, options);
+        }
+        function germany(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("germany_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function germanycapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("germany_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+        function germanypiecapita(response) {
+            var data = response.getDataTable();
+            var options = {title: 'Spending per Capita',
+                           height: 250,
+                           width: 480};
+            var chart = new google.visualization.PieChart
+            (document.getElementById("germany_pie_capita_div")
+        );
+            chart.draw(data, options);
+        }
+        
+        function italy(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("italy_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function italycapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("italy_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+        function italypiecapita(response) {
+            var data = response.getDataTable();
+            var options = {title: 'Spending per Capita',
+                           height: 250,
+                           width: 480};
+            var chart = new google.visualization.PieChart(
+                document.getElementById("italy_pie_capita_div")
+            );
+            chart.draw(data, options);
+        }
+        function japan(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("japan_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function japancapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("japan_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+        function unitedkingdom(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("unitedkingdom_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function unitedkingdomcapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("unitedkingdom_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+        function unitedkingdompiecapita(response) {
+            var data = response.getDataTable();
+            var options = {title: 'Spending per Capita',
+                           height: 250,
+                           width: 480};
+            var chart = new google.visualization.PieChart(
+                document.getElementById("unitedkingdom_pie_capita_div")
+            );
+            chart.draw(data, options);
+        }
+        function unitedstates(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("unitedstates_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function unitedstatescapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("unitedstates_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+        function southafrica(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("southafrica_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function southafricacapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("southafrica_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+        function southafricapiecapita(response) {
+            var data = response.getDataTable();
+            var options = {title: 'Spending per Capita',
+                           height: 250,
+                           width: 480};
+            var chart = new google.visualization.PieChart(
+                document.getElementById("southafrica_pie_capita_div")
+            );
+            chart.draw(data, options);
+        }
+        function china(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("china_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function chinacapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("china_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+        function india(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("india_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function indiacapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("india_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+         function russia(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("russia_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function russiacapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("russia_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+        function russiapiecapita(response) {
+            var data = response.getDataTable();
+            var options = {title: 'Spending per Capita',
+                           height: 250,
+                           width: 480};
+            var chart = new google.visualization.PieChart(
+                document.getElementById("russia_pie_capita_div")
+            );
+            chart.draw(data, options);
+        }
+        function brazil(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending in Billion($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("brazil_div")
+            );
+            chart.draw(data, options);
+        }
+
+        function brazilcapita(response) {
+            var data = response.getDataTable();
+            var options = {
+                height: 250,
+                width: 480,
+                vAxis: {title: 'Spending per Capita($)'},
+                hAxis: {title: 'Year'},
+                };
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("brazil_capita_div")
+            );
+            chart.draw(data, options);
+        } 
+        function brazilpiecapita(response) {
+            var data = response.getDataTable();
+            var options = {title: 'Spending per Capita',
+                           height: 250,
+                           width: 480};
+            var chart = new google.visualization.PieChart(
+                document.getElementById("brazil_pie_capita_div")
+            );
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+
+<body>
+    <div id='main'>
+        <div id='header'>
+            <div id='logo'>
+                <div id='image'><img src="image/GW_logo.jpg"></div>
+                <div id='logo_text'>
+                    <h1>DATS 6401 - Visualization</h1>
+                    <h2>Instructor - Nima Zahadat, Ph.D.</h2>
+                </div>
+            </div>
+        
+            <div id="menubar">
+                <div id='project'><h1>Individual Project - Jun Ying</h1></div>
+                <ul id="menu">
+                    <li><a href="index.html">Introduction</a></li>
+                    <li><a href="Education_Spending.html">Education</a></li>
+                    <li><a href="Health_Care_Spedning.html">Health Care</a></li>
+                    <li><a href="Military_Spending.html">Military</a></li>
+                    <li class="selected"><a href="Comparison.html">Comparison</a></li>
+                    <li><a href="Summary.html">Summary</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id='content'>
+            <div id='text'>
+                <h1>Overview</h1>
+                <p>There are two section. First part shows per capita military to per capita education and per capita 
+                    military to per capita health care. Second part shows the detail data of each country</p>
+                <p>The following graphs show the expenditure of each country in 2015.</p>
+            </div>
+            <div id='plot'>
+                <div id='title1'><h1>Education to Military in 2015</h1></div>
+                <div id='education_military_div' style="width: 900px; height: 500px;"></div>
+                <div id='title2'><h1>Health Care to Military in 2015</h1></div>
+                <div id='health_military_div' style="width: 900px; height: 500px;"></div>
+            </div>
+            <div id='text'>
+                <h1>About Countries</h1>
+                <p>It shows and compares per capita education spending, per capita health 
+                    care spending, per capita military spending, and per capita GDP of various countries.
+                    However, due to the lack of data on education spending, pie charts are shown for only six countries.</p>
+            </div>
+            <select name='' id='selection' onclick='changePic()'>
+                <option value='12' SELECTED hidden>Select..</option>
+                <option value='0'>Canada</option>
+                <option value='1'>France</option>
+                <option value='2'>Germany</option>
+                <option value='3'>Italy</option>
+                <option value='4'>Japan</option>
+                <option value='5'>United Kingdom</option>
+                <option value='6'>United States</option>
+                <option value='7'>South Africa</option>
+                <option value='8'>China</option>
+                <option value='9'>India</option>
+                <option value='10'>Russia</option>
+                <option value='11'>Brazil</option>
+            </select>
+            <div id='visual'>
+                <div id='plot1'>
+                    <div id='Canada' style='display: none'>
+                        <div id='canada_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='canada_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                    <div id='France' style='display: none'>
+                        <div id='france_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='france_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='france_pie_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                    <div id='Germany' style='display: none'>
+                        <div id='germany_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='germany_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='germany_pie_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                    <div id='Italy' style='display: none'>
+                        <div id='italy_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='italy_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='italy_pie_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                    <div id='Japan' style='display: none'>
+                        <div id='japan_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='japan_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                    <div id='United Kingdom' style='display: none'>
+                        <div id='unitedkingdom_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='unitedkingdom_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='unitedkingdom_pie_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                    <div id='United States' style='display: none'>
+                        <div id='unitedstates_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='unitedstates_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                    <div id='South Africa' style='display: none'>
+                        <div id='southafrica_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='southafrica_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='southafrica_pie_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                    <div id='China' style='display: none'>
+                        <div id='china_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='china_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                    <div id='India' style='display: none'>
+                        <div id='india_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='india_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                    <div id='Russia' style='display: none'>
+                        <div id='russia_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='russia_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='russia_pie_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                    <div id='Brazil' style='display: none'>
+                        <div id='brazil_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='brazil_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                        <div id='brazil_pie_capita_div' style='width: 500px; height: 300px; float:left;'></div>
+                    </div>
+                </div>
+
+                <script type='text/javascript'>
+                    function changePic() {
+                        var myselect = document.getElementById('selection');　　
+                        console.log('myselect------------>', myselect);
+                        var index = myselect.selectedIndex;　　　　　　　　　
+                        console.log('index------------>', index);
+                        var value = myselect.options[index].value;
+                        console.log('value------------>', value);
+                        var box1 = document.getElementById('Canada');
+                        var box2 = document.getElementById('France');
+                        var box3 = document.getElementById('Germany');
+                        var box4 = document.getElementById('Italy');
+                        var box5 = document.getElementById('Japan');
+                        var box6 = document.getElementById('United Kingdom');
+                        var box7 = document.getElementById('United States');
+                        var box8 = document.getElementById('South Africa');
+                        var box9 = document.getElementById('China');
+                        var box10 = document.getElementById('India');
+                        var box11 = document.getElementById('Russia');
+                        var box12 = document.getElementById('Brazil');
+                        if (value == 0) {
+                            box1.style.display = 'block'
+                            box2.style.display = 'none'
+                            box3.style.display = 'none'
+                            box4.style.display = 'none'
+                            box5.style.display = 'none'
+                            box6.style.display = 'none'
+                            box7.style.display = 'none'
+                            box8.style.display = 'none'
+                            box9.style.display = 'none'
+                            box10.style.display = 'none'
+                            box11.style.display = 'none'
+                            box12.style.display = 'none'
+                        }
+                        if (value == 1) {
+                            box1.style.display = 'none'
+                            box2.style.display = 'block'
+                            box3.style.display = 'none'
+                            box4.style.display = 'none'
+                            box5.style.display = 'none'
+                            box6.style.display = 'none'
+                            box7.style.display = 'none'
+                            box8.style.display = 'none'
+                            box9.style.display = 'none'
+                            box10.style.display = 'none'
+                            box11.style.display = 'none'
+                            box12.style.display = 'none'
+                        }
+                        if (value == 2)  {
+                            box1.style.display = 'none'
+                            box2.style.display = 'none'
+                            box3.style.display = 'block'
+                            box4.style.display = 'none'
+                            box5.style.display = 'none'
+                            box6.style.display = 'none'
+                            box7.style.display = 'none'
+                            box8.style.display = 'none'
+                            box9.style.display = 'none'
+                            box10.style.display = 'none'
+                            box11.style.display = 'none'
+                            box12.style.display = 'none'
+                        }
+                        if (value == 3)  {
+                            box1.style.display = 'none'
+                            box2.style.display = 'none'
+                            box3.style.display = 'none'
+                            box4.style.display = 'block'
+                            box5.style.display = 'none'
+                            box6.style.display = 'none'
+                            box7.style.display = 'none'
+                            box8.style.display = 'none'
+                            box9.style.display = 'none'
+                            box10.style.display = 'none'
+                            box11.style.display = 'none'
+                            box12.style.display = 'none'
+                        }
+                        if (value == 4)  {
+                            box1.style.display = 'none'
+                            box2.style.display = 'none'
+                            box3.style.display = 'none'
+                            box4.style.display = 'none'
+                            box5.style.display = 'block'
+                            box6.style.display = 'none'
+                            box7.style.display = 'none'
+                            box8.style.display = 'none'
+                            box9.style.display = 'none'
+                            box10.style.display = 'none'
+                            box11.style.display = 'none'
+                            box12.style.display = 'none'
+                        }
+                        if (value == 5)  {
+                            box1.style.display = 'none'
+                            box2.style.display = 'none'
+                            box3.style.display = 'none'
+                            box4.style.display = 'none'
+                            box5.style.display = 'none'
+                            box6.style.display = 'block'
+                            box7.style.display = 'none'
+                            box8.style.display = 'none'
+                            box9.style.display = 'none'
+                            box10.style.display = 'none'
+                            box11.style.display = 'none'
+                            box12.style.display = 'none'
+                        }
+                        if (value == 6)  {
+                            box1.style.display = 'none'
+                            box2.style.display = 'none'
+                            box3.style.display = 'none'
+                            box4.style.display = 'none'
+                            box5.style.display = 'none'
+                            box6.style.display = 'none'
+                            box7.style.display = 'block'
+                            box8.style.display = 'none'
+                            box9.style.display = 'none'
+                            box10.style.display = 'none'
+                            box11.style.display = 'none'
+                            box12.style.display = 'none'
+                        }
+                        if (value == 7)  {
+                            box1.style.display = 'none'
+                            box2.style.display = 'none'
+                            box3.style.display = 'none'
+                            box4.style.display = 'none'
+                            box5.style.display = 'none'
+                            box6.style.display = 'none'
+                            box7.style.display = 'none'
+                            box8.style.display = 'block'
+                            box9.style.display = 'none'
+                            box10.style.display = 'none'
+                            box11.style.display = 'none'
+                            box12.style.display = 'none'
+                        }
+                        if (value == 8)  {
+                            box1.style.display = 'none'
+                            box2.style.display = 'none'
+                            box3.style.display = 'none'
+                            box4.style.display = 'none'
+                            box5.style.display = 'none'
+                            box6.style.display = 'none'
+                            box7.style.display = 'none'
+                            box8.style.display = 'none'
+                            box9.style.display = 'block'
+                            box10.style.display = 'none'
+                            box11.style.display = 'none'
+                            box12.style.display = 'none'
+                        }
+                        if (value == 9)  {
+                            box1.style.display = 'none'
+                            box2.style.display = 'none'
+                            box3.style.display = 'none'
+                            box4.style.display = 'none'
+                            box5.style.display = 'none'
+                            box6.style.display = 'none'
+                            box7.style.display = 'none'
+                            box8.style.display = 'none'
+                            box9.style.display = 'none'
+                            box10.style.display = 'block'
+                            box11.style.display = 'none'
+                            box12.style.display = 'none'
+                        }
+                        if (value == 10)  {
+                            box1.style.display = 'none'
+                            box2.style.display = 'none'
+                            box3.style.display = 'none'
+                            box4.style.display = 'none'
+                            box5.style.display = 'none'
+                            box6.style.display = 'none'
+                            box7.style.display = 'none'
+                            box8.style.display = 'none'
+                            box9.style.display = 'none'
+                            box10.style.display = 'none'
+                            box11.style.display = 'block'
+                            box12.style.display = 'none'
+                        }
+                        if (value == 11)  {
+                            box1.style.display = 'none'
+                            box2.style.display = 'none'
+                            box3.style.display = 'none'
+                            box4.style.display = 'none'
+                            box5.style.display = 'none'
+                            box6.style.display = 'none'
+                            box7.style.display = 'none'
+                            box8.style.display = 'none'
+                            box9.style.display = 'none'
+                            box10.style.display = 'none'
+                            box11.style.display = 'none'
+                            box12.style.display = 'block'
+                        }
+                    } // changePic
+                </script>
+            </div>
+        </div>
+
+        <div id='footer'>Copyright &copy; 2020</div>
+    </div>
+</body>
+</html>

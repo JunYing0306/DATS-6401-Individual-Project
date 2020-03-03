@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+    <title>DATS 6401 - Individual Project (Introduction)</title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawAllSheets);
+        function drawAllSheets() {
+            drawSheetName('population', 'SELECT A,B,C,D,E,F,G',
+                            populationgraph);
+            drawSheetName('population', 'SELECT A,K,J',
+                            populationrate);
+            drawSheetName('gdp', 'SELECT A,B,C,D,E,F,G',
+                            gdpgraph);
+            drawSheetName('gdp', 'SELECT A,K,J',
+                            gdprate);
+            drawSheetName('gdp_capita', 'SELECT A,B,C,D,E,F,G',
+                            gdpcapitagraph);
+            drawSheetName('gdp_capita', 'SELECT A,K,J',
+                            gdpcapitarate);
+        } //drawAllSheets
+
+        function drawSheetName(sheetName, query, responseHandler) {
+            var queryString = encodeURIComponent(query);
+            var query = new google.visualization.Query(
+                "https://docs.google.com/spreadsheets/d/1UJJ21FgSI9Wf0DiL6zx0g1EtK8cD-bwg-4UEhCIKC6U/gviz/tq?sheet=" 
+                + sheetName + "&headers=1&tq=" + queryString);
+            query.send(responseHandler);
+        } //drawSheetName
+
+        function populationgraph(response) {
+            var data = response.getDataTable();
+            data.sort({column: 6, desc:true});
+            var options = {
+                height: 400,
+                vAxis: {title: 'Population in Million'}};
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("population_graph_div")
+            );
+            chart.draw(data, options);
+        } //population graph
+
+        function populationrate(response) {
+            var data = response.getDataTable();
+            data.sort({column: 1, desc:true});
+            var options = {
+                height: 400,
+                colorAxis: {colors: ['#a6c0fe', '#f68084']}, //orange to blue
+                title: 'Growth Rate of Population'
+            };
+            var chart = new google.visualization.GeoChart(
+                document.getElementById("population_rate_div")
+            );
+            chart.draw(data, options);
+        } //population rate
+
+        function gdpgraph(response) {
+            var data = response.getDataTable();
+            data.sort({column: 6, desc:true});
+            var options = {
+                height: 400,
+                width: 900,
+                vAxis: {title: 'GDP in Billion($)'}};
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("gdp_graph_div")
+            );
+            chart.draw(data, options);
+        } //gdp graph
+
+        function gdprate(response) {
+            var data = response.getDataTable();
+            data.sort({column: 1, desc:true});
+            var options = {
+                height: 400,
+                width: 900,
+                colorAxis: {colors: ['#a6c0fe', '#f68084']}, 
+                title: 'Growth Rate of GDP'
+            };
+            var chart = new google.visualization.GeoChart(
+                document.getElementById("gdp_rate_div")
+            );
+            chart.draw(data, options);
+        } //gdp rate
+
+        function gdpcapitagraph(response) {
+            var data = response.getDataTable();
+            data.sort({column: 6, desc:true});
+            var options = {
+                height: 400,
+                width: 900,
+                vAxis: {title: 'GDP per Capita($)'}};
+            var chart = new google.visualization.ColumnChart(
+                document.getElementById("gdp_capita_graph_div")
+            );
+            chart.draw(data, options);
+        } //gdp graph
+
+        function gdpcapitarate(response) {
+            var data = response.getDataTable();
+            data.sort({column: 1, desc:true});
+            var options = {
+                height: 400,
+                width: 900,
+                colorAxis: {colors: ['#a6c0fe', '#f68084']}, 
+                title: 'Growth Rate of GDP'
+            };
+            var chart = new google.visualization.GeoChart(
+                document.getElementById("gdp_capita_rate_div")
+            );
+            chart.draw(data, options);
+        } //gdp rate
+    </script>
+</head>
+
+<body>
+    <div id='main'>
+        <div id='header'>
+            <div id='logo'>
+                <div id='image'><img src='image/GW_logo.jpg'></div>
+                <div id='logo_text'>
+                    <h1>DATS 6401 - Visualization</h1>
+                    <h2>Instructor - Nima Zahadat, Ph.D.</h2>
+                </div>
+            </div>
+            
+            <div id='menubar'>
+            <div id='project'><h1>Individual Project - Jun Ying</h1></div>
+                <ul id='menu'>
+                    <li class='selected'><a href='index.html'>Introduction</a></li>
+                    <li><a href='Education_Spending.html'>Education</a></li>
+                    <li><a href='Health_Care_Spedning.html'>Health Care</a></li>
+                    <li><a href='Military_Spending.html'>Military</a></li>
+                    <li><a href='Comparison.html'>Comparison</a></li>
+                    <li><a href='Summary.html'>Summary</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id='content'>
+            <div id='text'>
+                <h1>About Project</h1>
+                <p>By visualizing GDP, population and the spending of military, education and healthcare, 
+                    the project aims to observe spending changes and relationships across multiple countries 
+                    and identify possible future trends.</p>
+                <h1>About Dataset</h1>
+                <p>The datasets of this project are from <a href="https://data.worldbank.org/">World Bank Open Data</a>.
+                    I chosed G7 (Canada, France, Germany, Italy, Japan, United Kingdom and United States) and 
+                    BRICS (South Africa, China, India, Russia and Brazil) as observation objects, and visualized 
+                    the expenditure changes of these countries from 2010 to 2015.</p>
+                <p>Let us have a rough idea of the situation in these twelve countries. The graphs below are the 
+                    population and GPD changes in these countries and their growth rates from 2010 to 2015.</p>
+            </div>
+
+            <div id='visual'>
+                <select name='' id='selection' onclick='changePic()'>
+                    <option value='0'>Population</option>
+                    <option value='1'>GDP</option>
+                    <option value='2'>GDP per Capita</option>
+                </select>
+
+                <div id='plot'>
+                    <div id='title1' style='display: block'><h1>Population from 2010 to 2015</h1></div>
+                    <div id='population_graph_div' style='width: 900px; height: 400px; display: block;'></div>
+                    <div id='title2' style='display: block'><h1>Growth Rate of Population from 2010 to 2015</h1></div>
+                    <div id='population_rate_div' style='width: 900px; height: 400px; display: block;'></div>
+                    <div id='title3' style='display: none'><h1>GDP from 2010 to 2015</h1></div>
+                    <div id='gdp_graph_div' style='width: 900px; height: 400px; display: none;'></div>
+                    <div id='title4' style='display: none'><h1>Growth Rate of GDP from 2010 to 2015</h1></div>
+                    <div id='gdp_rate_div' style='width: 900px; height: 400px; display: none;'></div>
+                    <div id='title5' style='display: none'><h1>GDP per Capita from 2010 to 2015</h1></div>
+                    <div id='gdp_capita_graph_div' style='width: 900px; height: 400px; display: none;'></div>
+                    <div id='title6' style='display: none'><h1>Growth Rate of GDP per Capita from 2010 to 2015</h1></div>
+                    <div id='gdp_capita_rate_div' style='width: 900px; height: 400px; display: none;'></div>
+                </div>
+
+                <script type='text/javascript'>
+                    function changePic() {
+                        var myselect = document.getElementById('selection');　　
+                        console.log('myselect------------>', myselect);
+                        var index = myselect.selectedIndex;　　　　　　　　　
+                        console.log('index------------>', index);
+                        var value = myselect.options[index].value;
+                        console.log('value------------>', value);
+                        var box1 = document.getElementById('population_graph_div');
+                        var text1 = document.getElementById('title1');
+                        var box2 = document.getElementById('population_rate_div');
+                        var text2 = document.getElementById('title2');
+                        var box3 = document.getElementById('gdp_graph_div');
+                        var text3 = document.getElementById('title3');
+                        var box4 = document.getElementById('gdp_rate_div');
+                        var text4 = document.getElementById('title4');
+                        var box5 = document.getElementById('gdp_capita_graph_div');
+                        var text5 = document.getElementById('title5');
+                        var box6 = document.getElementById('gdp_capita_rate_div');
+                        var text6 = document.getElementById('title6');
+                        if (value == 0) {
+                            box1.style.display = 'block'
+                            text1.style.display = 'block'
+                            box2.style.display = 'block'
+                            text2.style.display = 'block'
+                            box3.style.display = 'none'
+                            text3.style.display = 'none'    
+                            box4.style.display = 'none'
+                            text4.style.display = 'none'   
+                            box5.style.display = 'none'
+                            text5.style.display = 'none'
+                            box6.style.display = 'none'
+                            text6.style.display = 'none' 
+                        }
+                        if (value == 1) {
+                            box1.style.display = 'none'
+                            text1.style.display = 'none'
+                            box2.style.display = 'none'
+                            text2.style.display = 'none'
+                            box3.style.display = 'block'
+                            text3.style.display = 'block'
+                            box4.style.display = 'block'
+                            text4.style.display = 'block'
+                            box5.style.display = 'none'
+                            text5.style.display = 'none'
+                            box6.style.display = 'none'
+                            text6.style.display = 'none' 
+                        }
+                        if (value == 2)  {
+                            box1.style.display = 'none'
+                            text1.style.display = 'none'
+                            box2.style.display = 'none'
+                            text2.style.display = 'none'
+                            box3.style.display = 'none'
+                            text3.style.display = 'none'
+                            box4.style.display = 'none'
+                            text4.style.display = 'none'
+                            box5.style.display = 'block'
+                            text5.style.display = 'block'
+                            box6.style.display = 'block'
+                            text6.style.display = 'block' 
+                        }
+                    }
+                </script>
+            </div>
+        </div>
+        <div id='footer'>Copyright &copy; 2020</div>
+    </div>
+</body>
+</html>

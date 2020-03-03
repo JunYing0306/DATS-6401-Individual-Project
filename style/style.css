@@ -1,0 +1,145 @@
+html {
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#main, #header, #logo, #menubar, #content, #text #footer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 1040px;
+}
+
+#main {
+    width: 1070px;
+    background: #004065;
+}
+
+#logo {
+    position: relative;
+    height: 125px;
+    background: #fff;
+}
+
+#image {
+    padding: 20px 30px 0 0;
+    float: right;
+}
+
+#logo_text {
+    position: absolute;
+    left: 30px;
+}
+
+#logo_text h1{
+    font: normal 275% 'Arial Black', arial, sans-serif;
+    padding: 10px 0 0 0;
+    color: #000;
+    margin: 0;
+    letter-spacing: 0.01em;
+}
+
+#logo_text h2 {
+    font: normal 125% 'Arial Black', arial, sans-serif;
+    color: #000;
+    padding: 5px 0 0 0;
+}
+
+#menubar {
+    height: 35px;
+    position: relative;
+    z-index: 1;
+    float: right;
+}
+
+#project {
+    position: relative;
+    float: left;
+    margin: 0;
+}
+
+#project h1 {
+    font: normal 125% 'Candara', arial, sans-serif;
+    padding: 4px 0 0 15px;
+    color: #fff;
+}
+
+#menu {
+    float: right;
+    padding: 0 10px 0 0;
+}
+
+#menu li {
+    float: left;
+    list-style: none;
+}
+
+#menu li a {
+    font: normal 105% Tahoma, Geneva, sans-serif;
+    text-transform: uppercase;
+    float: left;
+    text-decoration: none;
+    padding: 10px 15px 5px 15px;
+    color: #fff;
+}
+
+ul#menu li.selected a {
+    color: #111;
+    padding: 10px 15px 5px 15px;
+}
+
+ul#menu li.selected {
+    background: #fff;
+}
+
+ul#menu li a:hover {
+    text-decoration: underline;
+    background: #0D78AA;
+}
+
+#content {
+    overflow: hidden;
+    background: #fff;
+}
+
+#text {
+    text-align: left;
+    float: left;
+    padding: 10px 16px 15px 10px;
+    margin: 0 60px 0 60px;
+}
+
+#text h1 {
+    font: normal 150% 'Candara', arial, sans-serif;
+    padding: 4px 0 0 10px;
+    color: #000;
+}
+
+#text p {
+    font: normal 100% 'Candara', arial, sans-serif;
+    padding: 4px 16px 0 10px;
+    color: #000;
+}
+#selection {
+    margin: 30px 0 20px 80px;
+}
+
+#plot {
+    padding: 0 0 0 80px;
+}
+
+#plot h1 {
+    font: normal 150% 'Candara', arial, sans-serif;
+    text-align: center;
+    padding: 30px 140px 0 0;
+    color: #000;
+}
+
+#footer {
+    height: 20px;
+    text-align: center;
+    color: #fff;
+}
